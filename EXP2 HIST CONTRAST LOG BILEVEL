@@ -1,0 +1,51 @@
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+path = r'C:\Users\patil\Desktop\ipmv\IPMV\IPMVL\Sample images\tissues.tif'
+img=cv2.imread(path,0)
+plt.imshow(img,cmap='gray')
+plt.title('Original Image')
+plt.axis('off')
+plt.show()
+plt.hist(img.ravel(), bins=256 , range=[0,256] , color='gray', histtype='step')
+plt.xlabel('pixel intensity')
+plt.ylabel('frequency')
+plt.title (' HISTOGRAM')
+plt.axis('on')
+plt.show()
+
+#CONTRAST STRETCHING
+min_val = np.min(img)
+max_val = np.max(img)
+stretched_img = (img - min_val) * (255 / (max_val - min_val))
+plt.imshow(stretched_img, cmap='gray')
+plt.show()
+plt.hist(stretched_img.ravel(), bins=256 , range=[0,255] , color='gray', histtype='step')
+plt.xlabel('pixel intensity')
+plt.ylabel('frequency')
+plt.title (' HISTOGRAM')
+plt.axis('on')
+plt.show()
+
+#LOG 
+c = 20 / np.log(1 + np.max(img))
+log_t = c * (np.log(img + 1))
+
+# Normalize the result to be in the range [0, 255]
+log = np.uint8(log_t)
+
+plt.imshow(log ,cmap='gray')
+plt.title('LOG TRANSFORM')
+plt.axis('off')
+plt.show()
+
+#BILEVEL
+_,bilevel_img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
+plt.imshow(bilevel_img ,cmap='gray')
+plt.title('bilevel')
+plt.axis('off')
+plt.show()
+
+
+
+
