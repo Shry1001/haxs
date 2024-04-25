@@ -1,0 +1,39 @@
+#GAUSSIAN LPF 
+GAUSSIAN LOW PASS FILTER
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+path = r'C:\Users\patil\’
+img2 = cv2.imread(path, 0)
+M, N = img2.shape
+D0 = 10
+H = np.zeros((M, N), dtype=np.float32)
+for u in range(M):
+    for v in range(N):
+        D = np.sqrt((u - M/2)**2 + (v - N/2)**2)
+        H[u, v] = np.exp(-D**2 / (2 * D0**2))
+plt.figure(figsize=(5, 5))
+plt.imshow(H, cmap='gray')
+plt.title("Gaussian Low Pass Filter")
+plt.axis('off')
+plt.show()
+
+
+#LPF
+import cv2
+import numpy as np
+mask_size = (10,10)
+mask = np.ones(mask_size) / np.prod(mask_size)
+img_new = cv2.filter2D(img,-1,mask)
+plt.imshow(img_new,cmap='gray')
+plt.title('spatial domain filtering')
+plt.axis('off')
+plt.show()
+#HPF
+high_pass = img - img_new
+plt.imshow(high_pass,cmap='gray')
+#HIGH BOOST
+boost_factor = 1.5
+high_boost = high_pass * boost_factor
+high_boost_filtered = img + high_boost
+plt.imshow(high_boost_filtered, cmap='gray')
