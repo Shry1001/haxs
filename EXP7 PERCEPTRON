@@ -1,0 +1,73 @@
+from PIL import Image 
+import matplotlib.pyplot as plt
+import numpy as np 
+import random
+
+W1 = []
+i = 0
+
+while i < 9:
+    x = round(random.uniform(0, 1), 2)
+    W1.append(x)
+    i += 1
+
+def percept_acti(z):
+    if z > 0:
+        Y = 1
+    elif z == 0:
+        Y = 0
+    else:
+        Y = -1
+    return Y
+
+X = np.array([1, 1, 1, 1, 1, 1, 1, -1, 1])
+W = np.array(W1)
+b = 0 
+target = 1  # Set target to a single value since it's binary classification
+alpha = 1
+
+print('Initial weight vector:')
+print(W)
+
+E = []
+N = []
+epoch = 0
+converge = 1
+
+while converge != 0:
+    sum_error = 0
+    i = 0
+    while i < len(X):
+        old_W = W
+        aggre = np.dot(W, X.T) + b
+        Y = percept_acti(aggre)
+        if Y != target:
+            deltaW = alpha * X[i] * target
+            W = W + deltaW
+            b = b + alpha * target
+        error = sum((W - old_W) ** 2)
+        sum_error += error
+        i += 1
+    print('Sum of error square in this epoch:')
+    print(sum_error)
+    N.append(epoch)
+    E.append(sum_error)
+    print('New weight vector:')
+    print(W)
+    epoch += 1
+    converge = sum_error
+
+plt.plot(N, E, label='Error plot')
+plt.legend()
+plt.show()
+
+# Test
+X = np.array([1, 1, 1, 1, 1, 1, 1, -1, 1])
+z = np.dot(W, X.T) + b
+print('z:', z)
+Y = percept_acti(z)
+print('Decision:')
+if Y == 1:
+    print('Letter A')
+elif Y == -1:
+    print('Letter C')
