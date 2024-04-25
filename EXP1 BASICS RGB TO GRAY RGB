@@ -1,0 +1,104 @@
+#RGB COMPO
+import cv2
+import matplotlib.pyplot as plt
+
+# Read the image
+img = cv2.imread('C:/Users/patil/Desktop/ipmv/IPMV/IPMVL/Sample images/boy.jpg')
+
+img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+# Separate the color channels
+R = img[:,:,0]
+G = img[:,:,1]
+B = img[:,:,2]
+
+# Display the red channel
+plt.imshow(R, cmap='gray')
+plt.imshow(G, cmap='gray')
+plt.imshow(B, cmap='gray')
+plt.imshow(img_rgb)
+
+#RGB TO GRAY 
+img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2GRAY)
+# Plot the grayscale image
+plt.imshow(img_gray, cmap='gray')
+plt.title('Grayscale Image')
+plt.axis('off')
+plt.show()
+
+
+#ELEMENT WISE MULTIPLICATION
+import cv2
+import matplotlib.pyplot as plt
+# Read the first image
+img1 = cv2.imread('C:/Users/patil/Desktop/ipmv/IPMV/IPMVL/Sample images/boy.jpg')
+# Read the second image
+img2 = cv2.imread('C:/Users/patil/Desktop/ipmv/IPMV/IPMVL/Sample images/cutedog.jpg')
+# Resize the second image to match the dimensions of the first image
+img2_resized = cv2.resize(img2, (img1.shape[1], img1.shape[0]))
+# Multiply the two images element-wise
+result_img = cv2.multiply(img1, img2_resized)
+# Display the result
+plt.imshow(result_img)
+plt.title('Elementwise Multiplication Result')
+plt.axis('off')
+plt.show()
+
+#NEW PIXEL VALUE ADD
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+# Read the original image
+original_img = cv2.imread('C:/Users/patil/Desktop/ipmv/IPMV/IPMVL/Sample images/rose.tif')
+# Add 100 to all pixel values
+new_img = original_img + 100
+# Display the new image
+plt.imshow(new_img)
+plt.title('New Image with 100 added to all pixel values')
+plt.axis('off')
+plt.show()
+
+#NEW VALUE OVERWRTTIEN TO 255
+
+import cv2
+import matplotlib.pyplot as plt
+# Read the original image
+original_img = cv2.imread('C:/Users/patil/Desktop/ipmv/IPMV/IPMVL/Sample images/rose.tif')
+# Define the coordinates of the small window
+start_row = 100
+end_row = 150
+start_col = 200
+end_col = 250
+# Overwrite the values in the small window with 255 (white)
+original_img[start_row:end_row, start_col:end_col, :] = 255
+# Display the new image
+plt.imshow(original_img)
+plt.title('New Image with values overwritten with 255')
+plt.axis('off')
+plt.show()
+
+#PIXEL INTENSITY OF SMALL SECTION
+import cv2
+# Read the original image
+original_img = cv2.imread('C:/Users/patil/Desktop/ipmv/IPMV/IPMVL/Sample images/rose.tif')
+# Extract the 10x10 matrix from the top-left corner of the image
+small_section = original_img[0:10, 0:10, :]
+# Print the pixel intensities of the small section
+print("Pixel intensities of the small section (10x10 matrix):")
+print(small_section)
+
+#GREY LVEL OCCURRENCE
+import cv2
+# Read the original image
+original_img = cv2.imread('C:/Users/patil/Desktop/ipmv/IPMV/IPMVL/Sample images/rose.tif', cv2.IMREAD_GRAYSCALE)
+# Define the particular gray level you want to count
+target_gray_level = 128
+# Count how many times the target gray level occurs in the image
+count = (original_img == target_gray_level).sum()
+# Print the count
+print(f"The gray level {target_gray_level} occurs {count} times in the image.")
+
+
+
+
+
