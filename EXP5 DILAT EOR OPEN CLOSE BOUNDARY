@@ -1,0 +1,40 @@
+#DILATE
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+path=r"C:\Users\patil\Desktop\ipmv\IPMV\IPMVL\Sample images\polka dots.jpg"
+img= cv2.imread(path,0)
+plt.imshow(img,cmap='gray')
+plt.title('OG IMAGE')
+plt.axis('off')
+plt.show()
+kernel = np.ones((5,5), np.uint8)
+dilate = cv2.dilate(img,kernel)
+plt.imshow(dilate,cmap='gray')
+plt.title('dilated IMAGE')
+plt.axis('off')
+plt.show()
+#ERODE
+erode = cv2.erode(img,kernel)
+plt.imshow(erode,cmap='gray')
+plt.title('eroded IMAGE')
+plt.axis('off')
+plt.show()
+#OPEN
+opened_img = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
+plt.imshow(opened_img,cmap='gray')
+plt.title('OPENED IMAGE')
+plt.axis('off')
+plt.show()
+#CLOSE
+closed_img = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
+plt.imshow(closed_img,cmap='gray')
+plt.title('CLOSED IMAGE')
+plt.axis('off')
+plt.show()
+#BOUNDARY
+boundary = img - erode
+plt.imshow(boundary,cmap='gray')
+plt.title('boundary IMAGE')
+plt.axis('off')
+plt.show()
